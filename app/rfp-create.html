@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create Request for Proposal · Workday VNDLY</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="shell.js"></script>
+<style>
+  .create-title { display: flex; align-items: center; gap: 16px; margin-top: 14px; }
+  .create-title h1 { font-size: 34px; }
+  .form-card { margin-top: 28px; padding: 32px 24px; display: grid; gap: 22px; }
+  .form-card .section-label { margin-bottom: -10px; }
+  .form-card hr { height: 1px; border: 0; background: var(--divider); margin: 6px 0; width: 100%; }
+  .rte { width: 376px; max-width: 100%; border: 1px solid #cfcfcf; border-radius: 8px; overflow: hidden; }
+  .rte .menubar { display: flex; flex-wrap: wrap; gap: 4px 18px; padding: 12px 20px 10px; font-size: 14px; }
+  .rte .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 6px 12px 10px 20px; border-bottom: 1px solid var(--divider); box-shadow: 0 2px 3px rgba(0,0,0,.05); }
+  .rte .toolbar .grp { display: flex; gap: 14px; align-items: center; color: #444; }
+  .rte .toolbar .grp svg { width: 20px; height: 20px; }
+  .rte .toolbar .grp.dim { color: #999; }
+  .rte .para { display: inline-flex; align-items: center; justify-content: space-between; width: 128px; height: 28px; padding: 0 8px; background: #f1f2f4; border-radius: 4px; font-size: 14px; }
+  .rte .para svg { width: 16px; height: 16px; }
+  .rte .area { height: 168px; }
+  .when { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .when .tz { font-size: 16px; }
+</style>
+</head>
+<body data-user="Saul Perez" data-tasks-box>
+<main class="page">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="rfp-list.html">Home</a><i data-i="chevright" class="sep"></i><a href="rfp-list.html">Request for Proposals</a><i data-i="chevright" class="sep"></i><span class="cur">Create Request for Proposal</span></nav>
+  <div class="create-title"><a class="icon-btn" aria-label="Back" href="rfp-list.html"><i data-i="arrowleft"></i></a><h1>Create Request for Proposal</h1></div>
+
+  <form class="card form-card" onsubmit="return false">
+    <h3 class="section-label">General</h3>
+    <div class="field"><label for="title">Title<span class="req">*</span></label><div class="input w250" id="title"><span class="ph">Enter RFP Title</span></div></div>
+    <div class="field"><label>Description<span class="req">*</span></label>
+      <div class="rte">
+        <div class="menubar"><span>File</span><span>Edit</span><span>View</span><span>Insert</span><span>Format</span><span>Tools</span></div>
+        <div class="toolbar">
+          <span class="grp dim"><i data-i="undo"></i><i data-i="redo"></i></span>
+          <span class="para">Paragraph <i data-i="chevdown"></i></span>
+          <span class="grp"><i data-i="bold"></i><i data-i="italic"></i></span>
+          <span class="grp"><i data-i="alignleft"></i><i data-i="aligncenter"></i><i data-i="alignright"></i><i data-i="justify"></i></span>
+          <span class="grp"><i data-i="ul"></i><i data-i="ol"></i></span>
+          <span class="grp"><i data-i="outdent"></i><i data-i="indent"></i><i data-i="link"></i></span>
+        </div>
+        <div class="area"></div>
+      </div>
+    </div>
+    <div class="field"><label>Organization Unit<span class="req">*</span></label>
+      <div class="help">The Organization Unit is an organizational structure defined by the client that will determine who in the organization is able to interact with this RFP.</div>
+      <div class="input w250"><i data-i="search"></i><span class="grow ph">Select an Organization Unit</span><i data-i="caret"></i></div>
+    </div>
+    <hr>
+    <h3 class="section-label">Contacts</h3>
+    <div class="field"><label>RFP Owner<span class="req">*</span></label>
+      <div class="help">The RFP Owner has full administrative rights over the RFP</div>
+      <div class="input w250"><span class="grow">Saul Perez</span><i data-i="chevdown"></i></div>
+    </div>
+    <hr>
+    <h3 class="section-label">Response Timeline</h3>
+    <div class="field"><label>Vendor RSVP Due<span class="req">*</span></label>
+      <div class="help">This is the date by which all Vendors must RSVP to signify their intent to bid on the proposal</div>
+      <div class="when"><div class="input w250"><i data-i="calendar"></i><span class="ph">Select Date</span></div><div class="input w150"><i data-i="clock"></i></div><span class="tz">EDT</span></div>
+    </div>
+    <div class="field"><label>Vendor Questions Due</label>
+      <div class="help">This is the date by which all Vendors must submit questions</div>
+      <div class="when"><div class="input w250"><i data-i="calendar"></i><span class="ph">Select Date</span></div><div class="input w150"><i data-i="clock"></i></div><span class="tz">EDT</span></div>
+    </div>
+    <div class="field"><label style="max-width:360px">This is the date by which all Vendor responses must be submitted<span class="req">*</span></label>
+      <div class="help">This is the date by which all Vendor responses must be submitted</div>
+      <div class="when"><div class="input w250"><i data-i="calendar"></i><span class="ph">Select Date</span></div><div class="input w150"><i data-i="clock"></i></div><span class="tz">EDT</span></div>
+    </div>
+    <hr>
+    <div class="btn-group"><button class="btn primary">Save</button><button class="btn">Cancel</button></div>
+  </form>
+</main>
+</body>
+</html>

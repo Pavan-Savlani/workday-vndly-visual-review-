@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expenses &amp; Adjustments · Workday VNDLY</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="shell.js"></script>
+<style>
+  .page { max-width: 1140px; }
+  .crumbs { font-size: 13px; padding-top: 14px; min-height: 30px; }
+  .head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 2px; }
+  .head h1 { font-size: 30px; }
+  .layout { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 18px; margin-top: 22px; align-items: start; }
+  .filters { background: var(--panel); border-radius: 14px; padding: 12px 12px 14px; font-size: 13px; }
+  .filters .fh { display: flex; justify-content: space-between; align-items: center; padding: 0 0 10px; }
+  .filters .fh span { display: inline-flex; gap: 8px; align-items: center; letter-spacing: .04em; }
+  .filters .fh svg { width: 16px; height: 16px; }
+  .filters .fh a { font-weight: 700; text-decoration: none; font-size: 12px; }
+  .fg { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-top: 1px solid #e3e5e8; }
+  .fg svg { width: 14px; height: 14px; }
+  .fopt { display: flex; align-items: center; gap: 8px; padding: 4px 0 4px 2px; }
+  .tb { background: var(--panel); border-radius: 14px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; }
+  .tb .search { width: 194px; height: 30px; font-size: 13px; }
+  .tb .search svg { width: 16px; height: 16px; }
+  .tb .count { font-size: 11px; font-style: italic; color: var(--text-2); }
+  .tb .sort { margin-left: auto; display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-2); }
+  .tb .sort .input { width: 166px; height: 30px; font-size: 12px; color: var(--text); }
+  .tb .sort .input svg { width: 14px; height: 14px; color: #888; }
+  .list { margin-top: 12px; border: 1px solid #d6d6d6; border-radius: 14px; padding: 0 14px; }
+  .bulk { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; font-size: 12px; }
+  .bulk .sel { display: flex; align-items: center; gap: 8px; }
+  .bulk .btn { height: 24px; padding: 0 10px; font-size: 11px; }
+  .xrow { display: grid; grid-template-columns: 24px minmax(0, 220px) minmax(0, 1fr); gap: 0 16px; padding: 18px 0 16px 0; border-top: 1px solid #e0e0e0; }
+  .xrow .cb { padding-top: 2px; }
+  .xrow .main { font-size: 11px; display: grid; gap: 3px; }
+  .xrow .main .t { font-size: 14px; font-weight: 500; }
+  .xrow .main .amt { display: flex; gap: 8px; align-items: center; font-weight: 700; }
+  .xrow .main .badge { font-size: 9px; padding: 1px 5px; }
+  .xrow .main a.wo { font-weight: 700; }
+  .xmeta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 16px; font-size: 11px; color: #555; }
+  .xmeta .blk { display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 6px; align-items: start; }
+  .xmeta .blk svg { width: 13px; height: 13px; color: #777; margin-top: 1px; }
+  .xmeta .blk .l { color: #555; }
+  .xmeta .blk .v { color: #777; }
+  .pager { display: grid; justify-items: center; gap: 8px; margin-top: 18px; font-size: 12px; color: var(--text-2); }
+  .pager .ctl { display: flex; align-items: center; gap: 14px; color: #aaa; }
+  .pager .ctl svg { width: 14px; height: 14px; }
+  .pager .cur { width: 24px; height: 24px; border-radius: 50%; background: var(--blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+</style>
+</head>
+<body data-user="Admin Automation" data-nav="full" data-notify>
+<main class="page">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="#">Home</a><i data-i="chevright" class="sep"></i><span class="cur">Expenses &amp; Adjustments</span></nav>
+  <div class="head"><h1>Expenses &amp; Adjustments</h1>
+    <div class="btn-group"><button class="btn primary sm"><i data-i="plus"></i>Add New</button><button class="btn sm"><i data-i="upload"></i>Bulk Upload</button></div>
+  </div>
+  <div class="layout">
+    <aside class="filters" aria-label="Filters">
+      <div class="fh"><span><i data-i="filter"></i>Filters</span><a href="#">Clear</a></div>
+      <div class="fg">Current Status<i data-i="chevdown"></i></div>
+      <div class="fg">Purpose<i data-i="chevup"></i></div>
+      <div class="fopt"><span class="checkbox"></span>Expense</div>
+      <div class="fopt" style="padding-bottom:10px"><span class="checkbox on"><i data-i="check"></i></span>Misc Adjustment</div>
+      <div class="fg">Report Type<i data-i="chevdown"></i></div>
+      <div class="fg">Category<i data-i="chevdown"></i></div>
+      <div class="fg">Item Type<i data-i="chevdown"></i></div>
+      <div class="fg">Submitted Date<i data-i="chevdown"></i></div>
+      <div class="fg">Approval Date<i data-i="chevdown"></i></div>
+      <div class="fg">Organization Unit<i data-i="chevdown"></i></div>
+      <div class="fg">Vendor<i data-i="chevdown"></i></div>
+    </aside>
+    <div>
+      <div class="tb"><div class="input search"><i data-i="search"></i><span class="ph">Search</span></div><span class="count">23 Results</span>
+        <div class="sort"><span>Sort</span><div class="input"><span class="grow">Submitted Date (High-Low)</span><i data-i="caret"></i></div></div></div>
+      <section class="list">
+        <div class="bulk"><span class="sel"><span class="checkbox"></span>Select all on page</span><span class="btn-group"><button class="btn primary">Approve</button><button class="btn">Reject</button></span></div>
+        <div id="rows"></div>
+      </section>
+      <div class="pager"><div class="ctl"><i data-i="chevleft"></i><span class="cur">1</span><i data-i="chevright"></i></div><span>23 items</span></div>
+    </div>
+  </div>
+</main>
+<script>
+  // [title, status, amount, created, approvedOn, workOrder, id, adjFor, vendor, approvers, type, orgUnit, selectable]
+  const S = 'SUBMITTED', A = 'APPROVED', R = 'REJECTED';
+  const rows = [
+    ['Within Budget Misc Adj', S, 'USD 35.00', 'Sep 9, 2026', '', 'WO00423', 'E0000066', 'Camille Ortega', 'Automation', 'Saul Beck', 'Misc Adj Report', 'Time & Money Child2', 0],
+    ['Over Budget Misc Adj', S, 'USD 45.00', 'Aug 18, 2026', '', 'WO00423', 'E0000064', 'Camille Ortega', 'Automation', 'Saul Beck', 'Misc Adj Report', 'Time & Money Child2', 0],
+    ['VNDLYQA-697 Report', S, 'USD 0.50', 'Sep 1, 2026', '', 'WO00069', 'E0000065', 'Tim Hortons', 'Timemoney Vendor', 'Admin Automation, Saul Beck', 'Misc Adj Report', 'Time & Money Child1', 1],
+    ['VNDLYQA-69661', S, 'USD 75.00', 'Jul 16, 2026', '', 'WO00420', 'E0000058', 'VNDLYQA-69660 Candidate', 'Automation', 'SOW Admin', 'Misc Adj with Tax Report', 'Test Automation', 0],
+    ['VNDLYQA-69659', S, 'USD 89.00', 'Jul 8, 2026', '', 'WO00419', 'E0000056', 'VNDLYQA-69658 Contractor', 'Automation', 'SOW Admin', 'Misc Adj with Tax Report', 'Test Automation', 0],
+    ['VNDLYQA-69659', S, 'USD 70.00', 'Jul 8, 2026', '', 'WO00419', 'E0000055', 'VNDLYQA-69658 Contractor', 'Automation', 'SOW Admin', 'Misc Adj with Tax Report', 'Test Automation', 0],
+    ['VNDLYQA-69659', S, 'USD 50.00', 'Jul 7, 2026', '', 'WO00419', 'E0000054', 'VNDLYQA-69658 Contractor', 'Automation', 'SOW Admin', 'Misc Adj with Tax Report', 'Test Automation', 0],
+    ['Misc Adj VNDLYQA-720', S, 'USD 29.00', 'Jun 13, 2025', '', 'WO00038', 'E0000049', 'Luke Davis', 'Automation', 'Saul Beck', 'Misc Adj Report', 'UI', 0],
+    ['VNDLY-T695', S, 'USD 15.00', 'Nov 8, 2021', '', 'WO00069', 'E0000013', 'Tim Hortons', 'Timemoney Vendor', 'Saul Beck', 'Misc Adj Report', 'Time & Money Child1', 0],
+    ['Void Invoice Misc Adj', A, 'USD 20.00', 'Jul 19, 2024', 'Jul 19, 2024', 'WO00388', 'E0000047', 'VoidInvoice2 Bulktest2', 'TimeMoneyTest Vendor', 'TIMO RM, Admin Automation, Expense Approver', 'Misc Adj Report', 'Time & Money', 0],
+    ['SOW Misc Adj Positive Over', S, 'USD 3,000.00', 'Mar 22, 2022', '', 'WO00189', 'E0000036', 'Contractor Misc-Adj', 'SOW Vendor 2', 'Admin Automation, SOW Top-Manager', 'SOW Misc Adj Report', 'SOW Child Budget Approvers', 1],
+    ['SOW Misc Adj Positive Invoice', A, 'USD 20.00', 'Mar 22, 2022', 'Mar 22, 2022', 'WO00189', 'E0000034', 'Contractor Misc-Adj', 'SOW Vendor 2', 'Admin Automation, SOW Top-Manager', 'SOW Misc Adj Report', 'SOW Child Budget Approvers', 0],
+    ['SOW Misc Adj Negative Invoice', A, '-USD 30.00', 'Mar 22, 2022', 'Mar 22, 2022', 'WO00189', 'E0000035', 'Contractor Misc-Adj', 'SOW Vendor 2', 'Admin Automation, SOW Top-Manager', 'SOW Misc Adj Report', 'SOW Child Budget Approvers', 0],
+    ['SOW Misc Adj Negative Reject', S, '-USD 31.00', 'Mar 22, 2022', '', 'WO00189', 'E0000033', 'Contractor Misc-Adj', 'SOW Vendor 2', 'Admin Automation, SOW Top-Manager', 'SOW Misc Adj Report', 'SOW Child Budget Approvers', 1],
+    ['SOW Misc Adj Negative Approve', S, '-USD 35.00', 'Mar 22, 2022', '', 'WO00189', 'E0000032', 'Contractor Misc-Adj', 'SOW Vendor 2', 'Admin Automation, SOW Top-Manager', 'SOW Misc Adj Report', 'SOW Child Budget Approvers', 1],
+    ['SOW Misc Adj Positive Reject', S, 'USD 23.00', 'Mar 22, 2022', '', 'WO00189', 'E0000031', 'Contractor Misc-Adj', 'SOW Vendor 2', 'Admin Automation, SOW Top-Manager', 'SOW Misc Adj Report', 'SOW Child Budget Approvers', 1],
+    ['SOW Misc Adj Positive Approve', S, 'USD 27.00', 'Mar 22, 2022', '', 'WO00189', 'E0000030', 'Contractor Misc-Adj', 'SOW Vendor 2', 'Admin Automation, SOW Top-Manager', 'SOW Misc Adj Report', 'SOW Child Budget Approvers', 1],
+    ['Over Budget Misc Adjustment', S, 'USD 200.00', 'Nov 17, 2021', '', 'WO00038', 'E0000021', 'Luke Davis', 'Automation', 'Saul Beck', 'Misc Adj Report', 'UI', 0],
+    ['VNDLY-T778', R, 'USD 0.00', 'Nov 10, 2021', '', '', 'E0000018', 'Tim Hortons', 'Timemoney Vendor', 'Admin Automation', 'Misc Adj Report', 'Time & Money', 0],
+    ['VNDLY-T777', R, 'USD 0.00', 'Nov 10, 2021', '', 'WO00069', 'E0000017', 'Tim Hortons', 'Timemoney Vendor', 'Saul Beck', 'Misc Adj Report', 'Time & Money Child1', 0],
+    ['VNDLY-T701', S, 'USD 41.00', 'Nov 8, 2021', '', '', 'E0000016', 'Tim Hortons', 'Timemoney Vendor', 'Admin Automation', 'Misc Adj Report', 'Time & Money', 1],
+    ['VNDLY-T700', S, 'USD 32.00', 'Nov 8, 2021', '', '', 'E0000015', 'Tim Hortons', 'Timemoney Vendor', 'Admin Automation', 'Misc Adj Report', 'Time & Money', 1],
+    ['VNDLY-T696', S, 'USD 20.00', 'Nov 8, 2021', '', 'WO00069', 'E0000014', 'Tim Hortons', 'Timemoney Vendor', 'Saul Beck', 'Misc Adj Report', 'Time & Money Child1', 0],
+  ];
+  const cls = { SUBMITTED: 'pending', APPROVED: 'positive', REJECTED: 'negative' };
+  const esc = s => s.replace(/&/g, '&amp;');
+  const blk = (ic, l, v) => `<div class="blk">${icon(ic)}<div><div class="l">${l}</div><div class="v">${esc(v)}</div></div></div>`;
+  document.getElementById('rows').innerHTML = rows.map(r => `
+    <article class="xrow">
+      <div class="cb">${r[12] ? '<span class="checkbox"></span>' : ''}</div>
+      <div class="main">
+        <a class="t" href="expense-report.html">${r[0]}</a>
+        <div class="amt"><span class="badge ${cls[r[1]]}">${r[1]}</span><span>Amount: ${r[2]}</span></div>
+        <div style="margin-top:6px">Created On ${r[3]}</div>
+        ${r[4] ? `<div>Approved On ${r[4]}</div>` : ''}
+        ${r[5] ? `<a class="wo" href="#">Work Order ${r[5]}</a>` : ''}
+      </div>
+      <div class="xmeta">
+        ${blk('idcard', 'ID', r[6])}${blk('user', 'Adjustment for', r[7])}${blk('doc', 'Type', r[10])}
+        ${blk('building', 'Vendor', r[8])}${blk('pen', 'Approvers', r[9])}${blk('org', 'Organization Unit', r[11])}
+      </div>
+    </article>`).join('');
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "workday-vndly-mcp-demo",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.mjs",
+    "test:visual": "playwright test"
+  },
+  "devDependencies": {
+    "@applitools/eyes-playwright": "^1.52.0",
+    "@playwright/test": "^1.60.0"
+  }
+}

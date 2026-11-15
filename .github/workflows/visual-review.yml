@@ -1,0 +1,113 @@
+name: Visual regression + AI review
+
+on:
+  schedule:
+    - cron: '0 2 * * 1-5'   # nightly regression on dev
+    - cron: '0 6 * * 4'     # weekly pre-release regression (Thursday)
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Branch to test
+        default: dev
+      run_type:
+        description: nightly or weekly
+        type: choice
+        options: [nightly, weekly]
+        default: nightly
+
+concurrency:
+  group: visual-review-${{ github.ref }}-${{ inputs.branch || 'dev' }}
+  cancel-in-progress: false
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      TARGET_BRANCH: ${{ inputs.branch || 'dev' }}
+      RUN_TYPE: ${{ inputs.run_type || (github.event.schedule == '0 6 * * 4' && 'weekly' || 'nightly') }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      BASELINE_REF: eyes-baseline
+      APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
+      # The Applitools MCP inspects with the read key and resolves/saves with the write key.
+      APPLITOOLS_READ_KEY: ${{ secrets.APPLITOOLS_READ_KEY }}
+      APPLITOOLS_WRITE_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
+      REVIEWER_DIR: ${{ github.workspace }}/_reviewer/.github/agent
+    steps:
+      - name: Checkout branch under test
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TARGET_BRANCH }}
+          fetch-depth: 0
+          path: work
+
+      # Agent instructions and helpers always come from main, never from the branch under test.
+      - name: Checkout trusted reviewer config (main)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: _reviewer
+          sparse-checkout: .github/agent
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: work/package-lock.json
+
+      - name: Install
+        working-directory: work
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          npm install -g @anthropic-ai/claude-code@2.1.316
+
+      - name: Eyes regression
+        working-directory: work
+        env:
+          EYES_BATCH_ID: ${{ env.RUN_TYPE }}-${{ github.run_id }}-${{ github.run_attempt }}
+          EYES_BATCH_NAME: VNDLY ${{ env.RUN_TYPE == 'weekly' && 'Weekly Pre-release' || 'Nightly' }} Regression | ${{ env.TARGET_BRANCH }}
+        run: npx playwright test
+
+      - name: AI visual review (Claude + Applitools MCP)
+        working-directory: work
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_PROJECT: ${{ vars.JIRA_PROJECT || 'KAN' }}
+          CONFLUENCE_PAGE_ID: ${{ vars.CONFLUENCE_PAGE_ID }}
+        run: |
+          export BATCH_URL=$(node -p "require('./eyes-results.json').batchUrl")
+          echo "Reviewing $BATCH_URL"
+          claude -p "$(cat "$REVIEWER_DIR/visual-review.md")" \
+            --mcp-config "$REVIEWER_DIR/mcp.json" \
+            --model claude-opus-5-5 \
+            --permission-mode bypassPermissions \
+            --max-turns 400 \
+            --verbose --output-format stream-json > ../agent-transcript.jsonl
+          tail -c 3000 ../agent-transcript.jsonl
+
+      - name: Upload review artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-review-${{ github.run_attempt }}
+          path: |
+            agent-transcript.jsonl
+            work/eyes-results.json
+            work/review-result.json
+            work/review-summary.md
+            work/evidence/
+          if-no-files-found: ignore
+
+      - name: Publish summary and verdict
+        if: always()
+        working-directory: work
+        run: |
+          [ -f review-summary.md ] && cat review-summary.md >> "$GITHUB_STEP_SUMMARY"
+          if [ ! -f review-result.json ]; then echo "::error::Review agent did not produce a verdict"; exit 1; fi
+          verdict=$(node -p "require('./review-result.json').verdict")
+          echo "Verdict: $verdict"
+          if [ "$verdict" != "pass" ]; then echo "::error::New Critical/Major visual bugs were filed in Jira"; exit 1; fi

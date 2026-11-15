@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request for Proposals · Workday VNDLY</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="shell.js"></script>
+<style>
+  h1 { margin-top: 22px; }
+  .toolbar { margin-top: 44px; background: var(--panel); border-radius: 20px; padding: 18px 24px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .toolbar .search { width: 252px; }
+  .toolbar .search svg:first-child { width: 22px; height: 22px; color: #222; }
+  .toolbar .count { font-size: 14px; font-style: italic; color: var(--text-2); }
+  .toolbar .sort { margin-left: auto; display: flex; align-items: center; gap: 14px; color: var(--text-2); }
+  .toolbar .sort .input { width: 332px; }
+  .seg { display: inline-flex; border: 1px solid #cfcfcf; border-radius: 4px; overflow: hidden; margin-left: 12px; }
+  .seg span { width: 50px; height: 40px; display: flex; align-items: center; justify-content: center; background: #fff; color: #444; }
+  .seg span.on { background: var(--blue); color: #fff; }
+  .results { margin-top: 24px; border: 1px solid #d6d6d6; border-radius: 22px; padding: 0 8px; }
+  .row { position: relative; padding: 28px 24px 28px 48px; border-bottom: 1px solid #d6d6d6; }
+  .row:last-child { border-bottom: 0; }
+  .row .top { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px; }
+  .row .title { font-size: 20px; font-weight: 500; color: #222; text-decoration: none; }
+  .row .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 14px; font-size: 14px; color: #444; }
+  .row .meta span { display: inline-flex; align-items: center; gap: 12px; }
+  .row .meta svg { width: 18px; height: 18px; color: #555; }
+  .ribbon { position: absolute; left: -16px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; }
+  .ribbon .flag { width: 34px; height: 58px; background: #2bb594; color: #fff; display: flex; align-items: center; justify-content: center; }
+  .ribbon .flag svg { width: 18px; height: 18px; }
+  .ribbon .tip { width: 0; height: 0; border-top: 29px solid transparent; border-bottom: 29px solid transparent; border-left: 14px solid #2bb594; }
+  .pager { display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 24px; }
+  .pager .icon-btn { border-color: #cfcfcf; color: #999; }
+  .pager .icon-btn.on { color: #555; }
+</style>
+</head>
+<body data-user="Vincent Moreno">
+<main class="page">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="#">Home</a><i data-i="chevright" class="sep"></i><span class="cur">Request for Proposals</span></nav>
+  <h1>Request for Proposals</h1>
+
+  <div class="toolbar">
+    <a class="icon-btn" aria-label="Filters"><i data-i="filter"></i></a>
+    <div class="input search"><i data-i="search"></i><span class="grow">Filters Regression</span><i data-i="x"></i></div>
+    <span class="count">2 Results</span>
+    <div class="sort"><span>Sort</span><div class="input"><span class="grow">Proposals Due date (Earliest - Latest)</span><i data-i="caret" style="color:#888"></i></div></div>
+    <div class="seg" role="group" aria-label="View"><span class="on"><i data-i="list"></i></span><span><i data-i="grid"></i></span></div>
+  </div>
+
+  <section class="results">
+    <article class="row">
+      <div class="top"><a class="title" href="rfp-sourcing.html">Filters Regression - Last Gen Mobile App</a><span class="badge positive">Proposal Submitted</span><span class="rid">RFP0000007</span></div>
+      <div class="meta"><span><i data-i="building"></i>Org Unit: SOW Top Level Org</span><span><i data-i="calendar"></i>RSVPs Due: Jul 1, 2030, 1:00 AM EDT</span><span><i data-i="calendar"></i>Proposals Due: Jul 2, 2030, 1:00 AM EDT</span></div>
+    </article>
+    <article class="row">
+      <div class="ribbon" aria-label="Awarded"><span class="flag"><i data-i="award"></i></span><span class="tip"></span></div>
+      <div class="top"><a class="title" href="rfp-sourcing.html">Filters Regression - Core Web Platform</a><span class="badge positive">Awarded</span><span class="rid">RFP0000008</span></div>
+      <div class="meta"><span><i data-i="building"></i>Org Unit: SOW Top Level Org</span><span><i data-i="calendar"></i>RSVPs Due: Jul 1, 2030, 1:00 AM EDT</span><span><i data-i="calendar"></i>Proposals Due: Jul 2, 2030, 1:00 AM EDT</span></div>
+    </article>
+  </section>
+
+  <div class="pager"><a class="icon-btn" aria-label="Previous page"><i data-i="arrowleft"></i></a><span>Page 1 of 1 with 2 results</span><a class="icon-btn on" aria-label="Next page"><i data-i="arrowright"></i></a></div>
+</main>
+</body>
+</html>

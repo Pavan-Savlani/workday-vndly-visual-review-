@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expense Report · Workday VNDLY</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="shell.js"></script>
+<style>
+  .title-block { display: flex; align-items: flex-start; gap: 24px; margin-top: 8px; }
+  .title-block h1 { flex: 0 1 430px; min-width: 0; }
+  .title-meta { display: flex; align-items: center; gap: 10px; padding-top: 34px; white-space: nowrap; }
+  .title-actions { margin-left: auto; }
+  .utils { display: flex; gap: 8px; }
+  .row-actions { margin-top: 20px; }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .approver .name { font-weight: 500; font-size: 17px; }
+  .approver .you { color: var(--text-2); font-weight: 400; }
+  .comments-row { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; margin-top: 20px; border-top: 1px solid var(--divider); }
+  .comments-row .lbl { text-transform: uppercase; color: var(--text-2); font-weight: 500; letter-spacing: .04em; }
+  .summary .kv { gap: 22px 24px; }
+  @media (max-width: 760px) {
+    .title-block { flex-wrap: wrap; }
+    .title-actions { margin-left: 0; width: 100%; }
+    .split { grid-template-columns: minmax(0, 1fr); }
+    .kv.c4, .kv.c5, .kv.c6 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>
+</head>
+<body data-user="Saul Beck" data-notify>
+<main class="page">
+  <div class="crumb-row">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="#">Home</a><i data-i="chevright" class="sep"></i><a href="expenses.html">Expenses &amp; Adjustments</a><i data-i="chevright" class="sep"></i><span class="cur">Expense Report</span></nav>
+    <div class="utils"><a class="icon-btn" aria-label="Print"><i data-i="print"></i></a><a class="icon-btn" aria-label="Email"><i data-i="mail"></i></a><a class="icon-btn" aria-label="Add document"><i data-i="fileplus"></i></a></div>
+  </div>
+
+  <div class="title-block">
+    <h1>ContractorReport-1793776471110</h1>
+    <div class="title-meta"><span class="badge pending">Submitted</span><span class="rid">E0000069</span></div>
+    <div class="title-actions btn-group"><button class="btn">Adjust</button><button class="btn">Reject</button><button class="btn primary">Approve</button></div>
+  </div>
+
+  <div class="stack" style="margin-top:32px">
+    <section class="card summary">
+      <div class="kv c4">
+        <div><div class="l">Type</div><div class="v">Default</div></div>
+        <div><div class="l">Created On</div><div class="v">Nov 4, 2026</div></div>
+        <div><div class="l">Organization Unit</div><div class="v">UI</div></div>
+        <div><div class="l">Total Amount</div><div class="v">USD 446.37</div></div>
+        <div><div class="l">Expense for</div><div class="v"><a href="#" class="small">Eldora Jerde</a></div></div>
+        <div><div class="l">Work Order</div><div class="v"><a href="#" class="small">WO00001 - Automation Tester</a></div></div>
+        <div><div class="l">Vendor</div><div class="v">Automation</div></div>
+        <div><div class="l">Approvers</div><div class="v">Saul Beck</div></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Expenses</h2></div>
+      <div class="kv c6">
+        <div><div class="l">Title</div><div class="v">Conference</div></div>
+        <div><div class="l">Dates</div><div class="v">Nov 6 – 11, 2026</div></div>
+        <div><div class="l">Amount</div><div class="v">USD 438.32</div></div>
+        <div><div class="l">Type</div><div class="v">Airfare</div></div>
+        <div><div class="l">Attachment</div><div class="v">None</div></div>
+        <div><div class="l">More</div><div class="v"><a href="#" class="plain">View Comments and Rejection Reasons</a></div></div>
+      </div>
+      <div class="kv" style="margin-top:20px"><div><div class="l">Charge Code</div><div class="v">Job Regression Project 1-Job Task 1</div></div></div>
+      <div class="btn-group row-actions"><button class="btn primary">Approve</button><button class="btn">Reject</button></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Distance Expenses</h2></div>
+      <div class="kv c5">
+        <div><div class="l">Title</div><div class="v">Client On Site Meeting</div></div>
+        <div><div class="l">Dates</div><div class="v">Nov 6 – 11, 2026</div></div>
+        <div><div class="l">Amount</div><div class="v">USD 8.05</div></div>
+        <div><div class="l">Rate</div><div class="v">USD 0.23</div></div>
+        <div><div class="l">More</div><div class="v"><a href="#" class="plain">View Comments and Rejection Reasons</a></div></div>
+        <div><div class="l">Distance Traveled</div><div class="v">35.00</div></div>
+        <div><div class="l">From</div><div class="v">Our Office</div></div>
+        <div><div class="l">To</div><div class="v">Client Office</div></div>
+      </div>
+      <div class="kv" style="margin-top:20px"><div><div class="l">Charge Code</div><div class="v">Job Regression Project 1-Job Task 1</div></div></div>
+      <div class="btn-group row-actions"><button class="btn primary">Approve</button><button class="btn">Reject</button></div>
+    </section>
+
+    <div class="split">
+      <section class="card">
+        <div class="card-head"><h2>Activity</h2></div>
+        <div class="feed">
+          <div class="item"><div>Expense Report submitted</div><div class="meta">- Action completed by: Eldora Jerde</div><div class="meta">Nov 4, 2026, 2:15 AM</div></div>
+          <div class="item"><div>Expense Item 73 - Conference added</div><div class="meta">- Action completed by: Eldora Jerde</div><div class="meta">Nov 4, 2026, 2:14 AM</div></div>
+          <div class="item"><div>Expense Report draft saved</div><div class="meta">- Action completed by: Eldora Jerde</div><div class="meta">Nov 4, 2026, 2:14 AM</div></div>
+        </div>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>Approvals</h2><a href="#">View Approval Chain</a></div>
+        <div class="approver" style="padding:0 12px">
+          <div class="name">Saul Beck <span class="you">(You)</span></div>
+          <div class="caption" style="margin:2px 0 10px">Approval Required</div>
+          <div class="btn-group"><button class="btn primary xs">Approve</button><button class="btn xs">Reject</button></div>
+        </div>
+        <div class="comments-row"><span class="lbl">Approval Comments</span><a href="#">+ Add Comment</a></div>
+      </section>
+    </div>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,9 @@
+1. Developer works on Dev branch, commits and merge into Dev branch every day.
+2. once the Dev branch is ready for the day, nightly regressions run.
+3. nightly regressions have few visual tests, that publishes results in Eyes.
+4. Every day QA team, reviews the results and raises bug on Jira.
+5. there is a weekly release, every week, just before the release, regression runs again.
+6. Publishes results to Eyes platform for QA team to review.
+7. After the review, it gets released to Prod and the bugs are logged for the version to get fixed in next version.
+8. Jira ticket contains details about the tasks assigned to developers.
+9. There exist a validation guidlines on Confluence platform.

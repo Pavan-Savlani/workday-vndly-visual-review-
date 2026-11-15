@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add Distance Expense · Workday VNDLY</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="shell.js"></script>
+</head>
+<body class="modal-page" data-no-shell>
+<div class="backdrop">
+  <div class="modal" role="dialog" aria-labelledby="mt">
+    <div class="modal-head"><h2 id="mt">Add Distance Expense</h2><a class="x" aria-label="Close"><i data-i="x"></i></a></div>
+    <div class="modal-body">
+      <div class="field"><label>Distance Expense Title<span class="req">*</span></label><div class="input"></div></div>
+      <div class="pair">
+        <div class="field"><label>From Date<span class="req">*</span></label><div class="input"><i data-i="calendar"></i><span class="grow">Nov 4, 2026</span><i data-i="x" class="clear"></i></div></div>
+        <div class="field"><label>To Date<span class="req">*</span></label><div class="input"><i data-i="calendar"></i><span class="grow">Nov 4, 2026</span><i data-i="x" class="clear"></i></div></div>
+      </div>
+      <div class="pair">
+        <div class="field"><label>From Location<span class="req">*</span></label><div class="input"></div></div>
+        <div class="field"><label>To Location<span class="req">*</span></label><div class="input"></div></div>
+      </div>
+      <div class="field"><label>Distance Traveled<span class="req">*</span></label><div class="input"></div></div>
+      <div class="subhead">Cost Allocation Code</div>
+      <div class="field"><label>Project Code<span class="req">*</span></label><div class="input"><span class="grow"></span><i data-i="chevdown"></i></div></div>
+      <div class="field"><label>Task Code</label><div class="input"><span class="grow"></span><i data-i="chevdown"></i></div></div>
+      <div><button class="btn"><i data-i="split"></i>Split Amount</button></div>
+      <div class="field"><label>Notes</label><div class="input" style="height:88px"></div></div>
+    </div>
+    <div class="modal-foot"><button class="btn primary" disabled>Save</button><button class="btn">Cancel</button></div>
+  </div>
+</div>
+</body>
+</html>
