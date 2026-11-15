@@ -54,6 +54,13 @@ if (cmd === 'search') {
     description: readFileSync(spec.descriptionFile, 'utf8'), labels: spec.labels || [],
   };
   if (spec.priority) fields.priority = { name: spec.priority };
+  // Projects without a Bug issue type (e.g. team-managed KAN): file as Task with a `bug` label.
+  const meta = await call(`/rest/api/2/issue/createmeta/${PROJECT}/issuetypes`);
+  const types = (meta.issueTypes || meta.values || []).map(t => t.name);
+  if (!types.includes(fields.issuetype.name)) {
+    if (fields.issuetype.name === 'Bug') fields.labels = [...new Set([...fields.labels, 'bug'])];
+    fields.issuetype = { name: 'Task' };
+  }
   let issue;
   try { issue = await call('/rest/api/2/issue', { method: 'POST', body: JSON.stringify({ fields }) }); }
   catch (e) { // some project schemes hide priority on create; retry without it

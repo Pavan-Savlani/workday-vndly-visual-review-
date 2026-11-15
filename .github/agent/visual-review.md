@@ -20,9 +20,9 @@ You review one Applitools Eyes batch produced by the nightly (or weekly pre-rele
 
 1. `git log --format='%h %an %s%n%b' "$BASELINE_REF"..HEAD` and `git diff "$BASELINE_REF"..HEAD`. Note every Jira key (e.g. `KAN-12`) in commit messages and which files each commit touched.
 2. Fetch each referenced issue with `atlassian.mjs get <KEY>`.
-3. Fetch open Jira context: `atlassian.mjs search 'project = KAN AND statusCategory != Done AND (labels in (visual-regression, known-issue, design-change) OR issuetype = Bug)'`.
+3. Fetch open Jira context: `atlassian.mjs search 'project = KAN AND statusCategory != Done AND labels in (visual-regression, known-issue, design-change, bug)'`.
    - An issue labelled `design-change` (or a Story/Task referenced by a commit) describes an **intended** change.
-   - An open Bug describes a **known issue**.
+   - An open issue labelled `bug` or `known-issue` describes a **known issue**. (This project has no Bug issue type; bugs are Tasks labelled `bug`, and `atlassian.mjs create` handles that.)
 
 ## 3. Investigate every difference
 
@@ -34,7 +34,7 @@ Classify **each changed area** into exactly one bucket:
 |---|---|---|
 | `DYNAMIC` | Only values that §4.2 lists as dynamic changed (record titles with numeric suffixes, record IDs, dates/timestamps, names, emails, initials, amounts, counts, activity text), and the layout around them is intact. | **Resolve it yourself**: add a `layout` region over the element (`eyes_resolve_regions`, target `checkpoint`; use `ignore` only when layout cannot hold, e.g. free text). A format violation (§5.13: NaN, raw ISO date, missing decimals) is NOT dynamic; it is a bug. |
 | `DESIGN_CHANGE` | Matches an intended change described in a design-change ticket or a ticket referenced by a commit in range. | **Recommend only**: do not accept. Comment on that ticket with the evidence and the recommendation "accept in Eyes". If the change conflicts with a §5 rule, say so in the comment. |
-| `KNOWN_ISSUE` | Matches an open Bug in Jira. | **Recommend only**: comment on that bug ("still reproducing in <run>"; state whether any commit in range touched the related code). Do not open a new ticket. |
+| `KNOWN_ISSUE` | Matches an open bug (`bug` / `known-issue` label) in Jira. | **Recommend only**: comment on that bug ("still reproducing in <run>"; state whether any commit in range touched the related code). Do not open a new ticket. |
 | `BUG` | Violates a §5 rule or matches a §7 anti-pattern and is not explained above. | **Recommend only**: open Jira ticket(s) as in step 4. |
 | `FLAKY` | Rendering noise or timing (§8 last bullet). | **Recommend only**: describe the stabilizing fix in the summary. |
 
