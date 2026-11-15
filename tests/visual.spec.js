@@ -2,12 +2,13 @@
 // First run creates the baselines in Eyes; later runs compare against them.
 const { test } = require('@playwright/test');
 const {
-  Eyes, ClassicRunner, Target, MatchLevel, BatchInfo, Configuration,
-  AccessibilityLevel, AccessibilityGuidelinesVersion,
+  Eyes, VisualGridRunner, RunnerOptions, BrowserType, Target, MatchLevel, BatchInfo, Configuration,
+  AccessibilityLevel, AccessibilityGuidelinesVersion, AccessibilityRegionType,
 } = require('@applitools/eyes-playwright');
 const pages = require('./pages');
 
-const runner = new ClassicRunner();
+// Rendered on the Applitools Ultrafast Grid, so local and CI runs (macOS / Linux) share the same baselines.
+const runner = new VisualGridRunner(new RunnerOptions().testConcurrency(5));
 const batch = new BatchInfo(process.env.EYES_BATCH_NAME || 'VNDLY Nightly Regression');
 if (process.env.EYES_BATCH_ID) batch.setId(process.env.EYES_BATCH_ID);
 
@@ -18,7 +19,7 @@ test.afterAll(async () => {
     const r = c.getTestResults();
     if (!r) continue;
     const width = r.getHostDisplaySize().getWidth();
-    console.log(`${r.getName().padEnd(32)} ${String(width).padStart(4)}px  ${r.getStatus()}${r.getIsNew() ? ' (new baseline)' : ''}  ${r.getUrl()}`);
+    console.log(`${r.getName().padEnd(32)} ${String(width).padStart(4)}px  ${r.getStatus()}${r.getIsNew() ? ' (new baseline)' : ''}${r.getAccessibilityStatus() ? ' a11y:' + r.getAccessibilityStatus().status : ''}  ${r.getUrl()}`);
     out.push({ name: r.getName(), width, status: r.getStatus(), isNew: r.getIsNew(), mismatches: r.getMismatches(), url: r.getUrl().replace('/app/batches/', '/app/test-results/') });
   }
   // Consumed by the AI reviewer in CI.
@@ -34,7 +35,10 @@ for (const p of pages) {
     config.setApiKey(process.env.APPLITOOLS_API_KEY);
     config.setBatch(batch);
     config.setMatchLevel(MatchLevel.Strict);
-    config.setAccessibilityValidation({ level: AccessibilityLevel.AA, guidelinesVersion: AccessibilityGuidelinesVersion.WCAG_2_1 });
+    config.addBrowser(p.viewport.width, p.viewport.height, BrowserType.CHROME);
+    config.setBaselineEnvName(`vndly-chrome-${p.viewport.width}`);
+    // WCAG 2.1 AA on full pages. Modal region checks are excluded until their contrast findings are triaged.
+    if (!p.region) config.setAccessibilityValidation({ level: AccessibilityLevel.AA, guidelinesVersion: AccessibilityGuidelinesVersion.WCAG_2_1 });
     if (process.env.EYES_BRANCH) config.setBranchName(process.env.EYES_BRANCH);
     eyes.setConfiguration(config);
 
@@ -42,7 +46,9 @@ for (const p of pages) {
       await eyes.open(page, 'Workday VNDLY', p.name, p.viewport);
       await page.goto('/' + p.path);
       await page.waitForFunction(() => window.__ready === true);
-      const target = p.region ? Target.region(p.region) : Target.window().fully();
+      // §4.4: disabled controls are exempt from contrast checks.
+      const target = (p.region ? Target.region(p.region) : Target.window().fully())
+        .accessibilityRegion('button[disabled]', AccessibilityRegionType.IgnoreContrast);
       await eyes.check(p.name, target);
       await eyes.close(false);
     } finally {

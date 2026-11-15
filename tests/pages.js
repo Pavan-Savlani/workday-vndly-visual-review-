@@ -6,8 +6,8 @@ module.exports = [
   { name: 'Create Request for Proposal',  path: 'rfp-create.html',                viewport: { width: 600,  height: 900 } },
   { name: 'RFP Detail - Draft',           path: 'rfp-draft.html',                 viewport: { width: 700,  height: 900 } },
   { name: 'RFP Detail - Sourcing',        path: 'rfp-sourcing.html',              viewport: { width: 700,  height: 900 } },
-  { name: 'Add Expense Modal',            path: 'modal-add-expense.html',         viewport: { width: 600,  height: 700 }, region: '.modal' },
-  { name: 'Add Distance Expense Modal',   path: 'modal-add-distance-expense.html',viewport: { width: 600,  height: 700 }, region: '.modal' },
+  { name: 'Add Expense Modal',            path: 'modal-add-expense.html',         viewport: { width: 600,  height: 1100 }, region: '.modal' },
+  { name: 'Add Distance Expense Modal',   path: 'modal-add-distance-expense.html',viewport: { width: 600,  height: 1100 }, region: '.modal' },
   { name: 'Add Vendors Modal',            path: 'modal-add-vendors.html',         viewport: { width: 600,  height: 500 }, region: '.modal' },
   { name: 'Add Vendors Modal',            path: 'modal-add-vendors.html',         viewport: { width: 400,  height: 500 }, region: '.modal' },
 ];
