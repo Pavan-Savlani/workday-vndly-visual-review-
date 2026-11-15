@@ -8,13 +8,23 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="rfp.css">
 <script src="shell.js"></script>
+<style>
+  /* button restyle follow-ups */
+  .collab { padding-left: 184px; }
+  .rfp-draft .contact-tab { top: 760px; bottom: auto; }
+  .empty .btn { white-space: normal; width: 128px; height: auto; padding: 4px 16px; line-height: 1.25; }
+  .tl { grid-template-columns: 64px 64px 64px; gap: 4px; }
+  .tl .v, .tl .l { white-space: nowrap; }
+  .step .todo { position: relative; left: -26px; }
+  .cols > div:last-child { margin-top: 14px; }
+</style>
 </head>
-<body data-user="Saul Perez" data-tasks-box>
+<body class="rfp-draft" data-user="Saul Perez" data-tasks-box>
 <main class="page">
   <nav class="crumbs" aria-label="Breadcrumb"><a href="rfp-list.html">Home</a><i data-i="chevright" class="sep"></i><a href="rfp-list.html">Request for Proposals</a><i data-i="chevright" class="sep"></i><span class="cur">RFP Smoke Test</span></nav>
-  <div class="rfp-title"><h1>RFP Smoke Test</h1><span class="badge neutral">Draft</span><span class="rid">RFP0000020</span></div>
-  <div class="updated"><i data-i="clock"></i>Last Updated By: Saul Perez - Oct 13, 2026</div>
-  <div class="collab"><span class="av">SP</span><a class="av add" aria-label="Add collaborator"><i data-i="userplus"></i></a></div>
+  <div class="rfp-title"><h1 data-dyn="title">RFP Smoke Test</h1><span class="badge neutral">Draft</span><span class="rid" data-dyn="rid">RFP0000020</span></div>
+  <div class="updated"><i data-i="clock"></i><span data-dyn="updated">Last Updated By: Saul Perez - Oct 13, 2026</span></div>
+  <div class="collab"><span class="av" data-dyn="initials">SP</span><a class="av add" aria-label="Add collaborator"><i data-i="userplus"></i></a></div>
   <div class="rfp-actions btn-group"><button class="btn primary" disabled>Send to Vendors</button><button class="btn">Actions <i data-i="chevdown"></i></button></div>
   <nav class="tabs"><a class="on" href="#">Overview</a><a href="#">Requirements</a><a href="#">Proposals</a></nav>
   <div class="cols">
@@ -26,28 +36,28 @@
         <div class="show-more"><a href="#">Show More</a></div>
         <div class="kv c2" style="margin-top:16px">
           <div><div class="l">Org Unit</div><div class="v">Test Automation</div></div>
-          <div><div class="l">RFP ID</div><div class="v">RFP0000020</div></div>
+          <div><div class="l">RFP ID</div><div class="v" data-dyn="rid">RFP0000020</div></div>
         </div>
         <hr class="divider">
         <h3 class="section-label">Response Timeline</h3>
         <div class="kv tl" style="margin-top:22px">
-          <div><div class="l">Vendor RSVP Due</div><div class="v">Mar 22, 2027, 12:00 AM EDT</div></div>
-          <div><div class="l">Vendor Questions Due</div><div class="v">Apr 11, 2027, 12:00 AM EDT</div></div>
-          <div><div class="l">Vendor Proposals Due</div><div class="v">Apr 11, 2027, 12:00 AM EDT</div></div>
+          <div><div class="l">Vendor RSVP Due</div><div class="v" data-dyn="due1">Mar 22, 2027, 12:00 AM EDT</div></div>
+          <div><div class="l">Vendor Questions Due</div><div class="v" data-dyn="due2">Apr 11, 2027, 12:00 AM EDT</div></div>
+          <div><div class="l">Vendor Proposals Due</div><div class="v" data-dyn="due2">Apr 11, 2027, 12:00 AM EDT</div></div>
         </div>
         <hr class="divider">
         <h3 class="section-label">Contacts</h3>
         <div class="contact" style="margin-top:22px">
-          <span class="av solid">SP</span>
-          <div><div class="l" style="font-weight:500">RFP Owner</div><div>Saul Perez</div><div class="em">auto+saul-perez@vndly.com</div></div>
+          <span class="av solid" data-dyn="initials">SP</span>
+          <div><div class="l" style="font-weight:500">RFP Owner</div><div data-dyn="owner">Saul Perez</div><div class="em" data-dyn="owner-email">auto+saul-perez@vndly.com</div></div>
         </div>
       </section>
       <section class="card">
         <div class="card-head"><h2>Activity</h2></div>
         <div class="feed ">
-          <div class="item"><div>"Brooksource" was added to vendors by Saul Perez</div><div class="meta">- Action completed by: Saul Perez</div><div class="meta">Oct 13, 2026, 1:58 AM</div></div>
-          <div class="item"><div>"Accenture" was added to vendors by Saul Perez</div><div class="meta">- Action completed by: Saul Perez</div><div class="meta">Oct 13, 2026, 1:58 AM</div></div>
-          <div class="item"><div>Proposal 20 was created by Saul Perez</div><div class="meta">- Action completed by: Saul Perez</div><div class="meta">Oct 13, 2026, 1:58 AM</div></div>
+          <div class="item"><div>"Brooksource" was added to vendors by <span data-dyn="owner">Saul Perez</span></div><div class="meta" data-dyn="actor">- Action completed by: Saul Perez</div><div class="meta" data-dyn="stamp">Oct 13, 2026, 1:58 AM</div></div>
+          <div class="item"><div>"Accenture" was added to vendors by <span data-dyn="owner">Saul Perez</span></div><div class="meta" data-dyn="actor">- Action completed by: Saul Perez</div><div class="meta" data-dyn="stamp">Oct 13, 2026, 1:58 AM</div></div>
+          <div class="item"><div>Proposal <span data-dyn="pnum">20</span> was created by <span data-dyn="owner">Saul Perez</span></div><div class="meta" data-dyn="actor">- Action completed by: Saul Perez</div><div class="meta" data-dyn="stamp">Oct 13, 2026, 1:58 AM</div></div>
         </div>
       </section>
     </div>
@@ -63,8 +73,8 @@
       </section>
       <section class="card">
         <div class="card-head"><h2>Vendors (2)</h2><a class="add-plus" href="#" aria-label="Add Vendor"><i data-i="plus"></i></a></div>
-        <div class="vendor"><div><div class="n">Accenture</div><div>Contact: Roderick Banks</div><div class="em">auto+accenture-rb@vndly.com</div></div><a class="icon-btn" aria-label="More"><i data-i="kebab"></i></a></div>
-        <div class="vendor"><div><div class="n">Brooksource</div><div>Contact: Vincent Moreno</div><div class="em">auto+brooksource-vm@vndly.com</div></div><a class="icon-btn" aria-label="More"><i data-i="kebab"></i></a></div>
+        <div class="vendor"><div><div class="n">Accenture</div><div data-dyn="c1">Contact: Roderick Banks</div><div class="em" data-dyn="c1-email">auto+accenture-rb@vndly.com</div></div><a class="icon-btn" aria-label="More"><i data-i="kebab"></i></a></div>
+        <div class="vendor"><div><div class="n">Brooksource</div><div data-dyn="c2">Contact: Vincent Moreno</div><div class="em" data-dyn="c2-email">auto+brooksource-vm@vndly.com</div></div><a class="icon-btn" aria-label="More"><i data-i="kebab"></i></a></div>
         <div class="view-all"><a href="#">View All</a></div>
       </section>
       <section class="card">
@@ -78,5 +88,34 @@
     </div>
   </div>
 </main>
+<script>
+  // Live record data: values come from the environment's seeded RFP and change on every run.
+  (function () {
+    const now = new Date(), rnd = n => Math.floor(Math.random() * n);
+    const M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const fmt = d => `${M[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+    const time = () => `${1 + rnd(12)}:${String(rnd(60)).padStart(2, '0')} ${rnd(2) ? 'AM' : 'PM'}`;
+    const plus = days => new Date(now.getTime() + days * 864e5);
+    const people = ['Saul Perez', 'Maya Chen', 'Omar Haddad', 'Lena Novak', 'Priya Raman', 'Diego Alvarez'];
+    const pick = () => people[rnd(people.length)];
+    const owner = pick(), [c1, c2] = [pick(), pick()];
+    const mail = (p, n) => `auto+${p}-${n.toLowerCase().replace(' ', '-')}@vndly.com`;
+    const num = 10 + rnd(990);
+    const v = {
+      title: `RFP Smoke Test ${String(now.getTime()).slice(-6)}`,
+      rid: `RFP${String(num).padStart(7, '0')}`,
+      updated: `Last Updated By: ${owner} - ${fmt(now)}`,
+      initials: owner.split(' ').map(w => w[0]).join(''),
+      owner, 'owner-email': mail('rfp', owner),
+      due1: `${fmt(plus(30 + rnd(30)))}, 12:00 AM EDT`, due2: `${fmt(plus(60 + rnd(30)))}, 12:00 AM EDT`,
+      c1: `Contact: ${c1}`, 'c1-email': mail('accenture', c1), c2: `Contact: ${c2}`, 'c2-email': mail('brooksource', c2),
+      actor: `- Action completed by: ${owner}`, pnum: String(num),
+    };
+    document.querySelectorAll('[data-dyn]').forEach(el => {
+      const k = el.dataset.dyn;
+      el.textContent = k === 'stamp' ? `${fmt(now)}, ${time()}` : v[k];
+    });
+  })();
+</script>
 </body>
 </html>
