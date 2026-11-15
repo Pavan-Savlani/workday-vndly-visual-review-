@@ -57,3 +57,7 @@
 .stepper .name { font-weight: 500; }
 .stepper .d1 { font-size: 16px; }
 .stepper .d2 { font-size: 14px; color: var(--text-2); }
+
+/* Primary actions on RFP record pages use the red action color (design change, see Jira story). */
+.btn.primary { background: #d0021b; border-color: #d0021b; }
+.btn.primary[disabled] { background: #f2a3ab; border-color: #f2a3ab; }
