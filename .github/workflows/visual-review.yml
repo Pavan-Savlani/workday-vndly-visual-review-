@@ -31,7 +31,7 @@ jobs:
       APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
       # The Applitools MCP inspects with the read key and resolves/saves with the write key.
       APPLITOOLS_READ_KEY: ${{ secrets.APPLITOOLS_READ_KEY }}
-      APPLITOOLS_WRITE_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
+      APPLITOOLS_WRITE_KEY: ${{ secrets.APPLITOOLS_WRITE_KEY }}
       REVIEWER_DIR: ${{ github.workspace }}/_reviewer/.github/agent
     steps:
       - name: Checkout branch under test
