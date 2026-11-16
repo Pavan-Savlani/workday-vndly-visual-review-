@@ -36,7 +36,7 @@ for (const p of pages) {
     config.setBatch(batch);
     config.setMatchLevel(MatchLevel.Strict);
     config.addBrowser(p.viewport.width, p.viewport.height, BrowserType.CHROME);
-    config.setBaselineEnvName(`vndly-chrome-${p.viewport.width}`);
+    config.setBaselineEnvName(`vndly-chrome-${p.viewport.width}x${p.viewport.height}`);
     // WCAG 2.1 AA on full pages. Modal region checks are excluded until their contrast findings are triaged.
     if (!p.region) config.setAccessibilityValidation({ level: AccessibilityLevel.AA, guidelinesVersion: AccessibilityGuidelinesVersion.WCAG_2_1 });
     if (process.env.EYES_BRANCH) config.setBranchName(process.env.EYES_BRANCH);
