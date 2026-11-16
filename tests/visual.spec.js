@@ -9,7 +9,7 @@ const pages = require('./pages');
 
 // Rendered on the Applitools Ultrafast Grid, so local and CI runs (macOS / Linux) share the same baselines.
 const runner = new VisualGridRunner(new RunnerOptions().testConcurrency(5));
-const batch = new BatchInfo(process.env.EYES_BATCH_NAME || 'VNDLY Nightly Regression');
+const batch = new BatchInfo(process.env.EYES_BATCH_NAME || 'VNDLY Local Run');
 if (process.env.EYES_BATCH_ID) batch.setId(process.env.EYES_BATCH_ID);
 
 test.afterAll(async () => {
